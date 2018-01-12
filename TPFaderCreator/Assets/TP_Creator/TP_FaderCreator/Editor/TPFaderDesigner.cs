@@ -37,6 +37,7 @@ public class TPFaderDesigner : EditorWindow
         bool existManager;
 
         public static SerializedObject creator;
+        SerializedProperty FadeType;
 
         void OnEnable()
         {
@@ -45,7 +46,10 @@ public class TPFaderDesigner : EditorWindow
             InitCreator();
 
             if (FaderCreator)
+            {
                 creator = new SerializedObject(FaderCreator);
+                FadeType = creator.FindProperty("FadeType");
+            }
         }
 
         void InitEditorData()
@@ -159,6 +163,7 @@ public class TPFaderDesigner : EditorWindow
             }
             else
             {
+                ChangeType();
                 SpawnEmpty();
                 ResetManager();
 
@@ -187,6 +192,12 @@ public class TPFaderDesigner : EditorWindow
             if (existManager)
                 FaderCreator = EditorGUILayout.ObjectField(FaderCreator, typeof(TPFaderCreator), true,
                     GUILayout.Height(30)) as TPFaderCreator;
+
+            if (FaderCreator)
+            {
+                creator = new SerializedObject(FaderCreator);
+                FadeType = creator.FindProperty("FadeType");
+            }
         }
 
         void ResetManager()
@@ -197,7 +208,7 @@ public class TPFaderDesigner : EditorWindow
 
         void SpawnEmpty()
         {
-            if (GUILayout.Button("Spawn empty Progress Fade", skin.button, GUILayout.Height(50)))
+            if (GUILayout.Button("Spawn empty Progress Fade", skin.button, GUILayout.Height(30)))
             {
                 if (EditorData.ProgressPrefab == null)
                 {
@@ -205,16 +216,20 @@ public class TPFaderDesigner : EditorWindow
                     return;
                 }
                 Instantiate(EditorData.ProgressPrefab);
-                Debug.Log("Progress fade example Created");
+                Debug.Log("Progress fade example created");
             }
+        }
+
+        void ChangeType()
+        {
+            EditorGUILayout.LabelField("Fade Type", skin.GetStyle("TipLabel"));
+            EditorGUILayout.PropertyField(FadeType, GUIContent.none);
         }
 
         public static void UpdateManager()
         {
-            //if (FaderCreator.TooltipLayout != null)
-            //    FaderCreator.TooltipLayout.Refresh();
-            //if (FaderCreator)
-            //    FaderCreator.Refresh();
+            if (FaderCreator)
+                FaderCreator.Refresh();
             if (creator != null)
                 creator.ApplyModifiedProperties();
         }
@@ -239,10 +254,10 @@ public class TPFaderDesigner : EditorWindow
             {
                 TPFaderToolsWindow.OpenToolWindow(TPFaderToolsWindow.ToolEnum.Progress);
             }
-            //if (GUILayout.Button("Layout", skin.button, GUILayout.Height(60)))
-            //{
-            //    TPFaderToolsWindow.OpenToolWindow(TPFaderToolsWindow.ToolEnum.Layout);
-            //}
+            if (GUILayout.Button("Faders", skin.button, GUILayout.Height(60)))
+            {
+                TPFaderToolsWindow.OpenToolWindow(TPFaderToolsWindow.ToolEnum.Faders);
+            }
             GUILayout.EndArea();
         }
 

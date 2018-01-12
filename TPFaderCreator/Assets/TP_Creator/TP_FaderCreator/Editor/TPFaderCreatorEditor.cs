@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
 using TP_Fader;
 
 namespace TP_FaderEditor
@@ -13,6 +10,7 @@ namespace TP_FaderEditor
         {
             serializedObject.Update();
 
+            EditorGUILayout.LabelField("This script allows you to manage fader");
             DrawPropertiesExcluding(serializedObject, scriptField);
 
             serializedObject.ApplyModifiedProperties();
