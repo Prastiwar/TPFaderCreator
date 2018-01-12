@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/TP_Creator/TP_FaderCreator/Demo/ExampleScene1.unity
+    guid: b48f1b5227851f8418bb75000308143b
+  - enabled: 1
+    path: Assets/TP_Creator/TP_FaderCreator/Demo/ExampleScene2.unity
+    guid: 0d51ae778b2ccef408ce3cff3d53a359

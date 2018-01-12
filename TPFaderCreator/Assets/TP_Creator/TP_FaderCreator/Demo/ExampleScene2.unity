@@ -188,18 +188,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 210902351}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 814020764}
-        m_MethodName: FadeTo
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ExampleScene2
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &210902351
@@ -263,8 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 210902350}
-  otherScene: ExampleScene2
-  speed: 5
+  otherScene: ExampleScene1
 --- !u!4 &464312586
 Transform:
   m_ObjectHideFlags: 0
@@ -278,211 +266,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &814020763
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224917742520616868, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1068486401691554, guid: 936d565527b4ae14193fc82177add642, type: 2}
-      propertyPath: m_Name
-      value: TP_FaderCreator
-      objectReference: {fileID: 0}
-    - target: {fileID: 1068486401691554, guid: 936d565527b4ae14193fc82177add642, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 225188600686051186, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114284096805653572, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 36ae37a7d95c78045b545c27d4e9ff8d,
-        type: 3}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: FadeType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: ProgressFader.LoadingKeyToLoad
-      value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: ProgressFader.LoadingTextString
-      value: Press Space to start
-      objectReference: {fileID: 0}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: FadeSpeed
-      value: 8.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: FadeTexture
-      value: 
-      objectReference: {fileID: 21300000, guid: 36ae37a7d95c78045b545c27d4e9ff8d,
-        type: 3}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: FadeColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: FadeColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: FadeColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: ProgressFader.LoadingKeyToStart
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: ProgressFader.ProgressPrefab
-      value: 
-      objectReference: {fileID: 1844384938467322, guid: 0eee0f88d257bd2428d930367ab13e20,
-        type: 2}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: ProgressFader.LoadingBar
-      value: 
-      objectReference: {fileID: 114358555360193640, guid: 0eee0f88d257bd2428d930367ab13e20,
-        type: 2}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: ProgressFader.LoadingImage
-      value: 
-      objectReference: {fileID: 114118994608742494, guid: 0eee0f88d257bd2428d930367ab13e20,
-        type: 2}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: ProgressFader.LoadingText
-      value: 
-      objectReference: {fileID: 114412068451515242, guid: 0eee0f88d257bd2428d930367ab13e20,
-        type: 2}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: ProgressFader.MustKeyToStart
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-        type: 2}
-      propertyPath: ProgressFader.LoadingAnyKeyToStart
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 936d565527b4ae14193fc82177add642, type: 2}
-  m_IsPrefabParent: 0
---- !u!114 &814020764 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114627867039096416, guid: 936d565527b4ae14193fc82177add642,
-    type: 2}
-  m_PrefabInternal: {fileID: 814020763}
-  m_Script: {fileID: 11500000, guid: af0bc379a18766c4f970051a58c6a423, type: 3}
 --- !u!1 &953651401
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +333,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: It's Scene 1
+  m_Text: It's Scene 2
 --- !u!222 &953651404
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -686,7 +469,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Fade to scene 2
+  m_Text: Fade to scene 1
 --- !u!222 &1358859266
 CanvasRenderer:
   m_ObjectHideFlags: 0
