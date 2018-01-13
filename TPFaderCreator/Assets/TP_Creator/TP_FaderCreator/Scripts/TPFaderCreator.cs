@@ -11,6 +11,7 @@ namespace TP_Fader
     [RequireComponent(typeof(CanvasGroup))]
     public class TPFaderCreator : MonoBehaviour
     {
+        //private static TPFaderCreator instance;
         [System.Serializable]
         public struct TP_ProgressFade
         {
@@ -24,15 +25,8 @@ namespace TP_Fader
             public bool LoadingAnyKeyToStart;
             public KeyCode LoadingKeyToStart;
         }
-
-        public enum FaderType
-        {
-            Alpha,
-            Progress
-        }
-
+        
         [HideInInspector] public TP_ProgressFade ProgressFader;
-        [HideInInspector] public FaderType FadeType;
         [HideInInspector] public bool IsFading = false;
         [HideInInspector] public float FadeSpeed;
         [HideInInspector] public Sprite FadeTexture;
@@ -55,6 +49,15 @@ namespace TP_Fader
 
         void Awake()
         {
+            //if (instance == null)
+            //{
+            //    instance = this;
+            //}
+            //else
+            //{
+            //    Destroy(this.gameObject);
+            //    return;
+            //}
             DontDestroyOnLoad(gameObject);
             Refresh();
         }
@@ -81,9 +84,9 @@ namespace TP_Fader
 
         public void Fade()
         {
-            Fade(-1);
+            Fade(-1, TPFader.FaderType.Alpha);
         }
-        public void Fade(int sceneIndex)
+        public void Fade(int sceneIndex, TPFader.FaderType FadeType)
         {
             if (IsFading)
                 return;
@@ -93,10 +96,11 @@ namespace TP_Fader
 
             switch (FadeType)
             {
-                case FaderType.Alpha:
+                case TPFader.FaderType.Alpha:
                     StartCoroutine(Fade(true, Alpha, FadeSpeed));
                     break;
-                case FaderType.Progress:
+
+                case TPFader.FaderType.Progress:
                     if (FadeScene < 0)
                     {
                         Debug.Log("Progress loading is available to scene only!");
@@ -104,6 +108,7 @@ namespace TP_Fader
                     }
                     StartCoroutine(FadeProgress());
                     break;
+
                 default:
                     break;
             }
@@ -125,7 +130,7 @@ namespace TP_Fader
         }
         IEnumerator FadeOut(bool IsAlpha, CanvasGroup _Alpha, float _FadeSpeed)
         {
-            if(BeforeSceneIsLoaded != null)
+            if (BeforeSceneIsLoaded != null)
                 BeforeSceneIsLoaded();
             if (IsAlpha && FadeScene != -1)
                 SceneManager.LoadScene(FadeScene);

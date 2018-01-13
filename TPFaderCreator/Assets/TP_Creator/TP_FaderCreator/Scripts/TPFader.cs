@@ -4,16 +4,24 @@ namespace TP_Fader
 {
     public class TPFader : MonoBehaviour
     {
+        public enum FaderType
+        {
+            Alpha,
+            Progress
+        }
+
+        public FaderType FadeType;
         public int FadeToSceneIndex;
-        TPFaderCreator creator;
 
         public delegate void OnFade();
         OnFade Fade;
 
+        TPFaderCreator creator;
+
         void Awake()
         {
             creator = FindObjectOfType<TPFaderCreator>();
-            if (Fade == null) Fade = () => creator.Fade(FadeToSceneIndex);
+            if (Fade == null) Fade = () => creator.Fade(FadeToSceneIndex, FadeType);
             GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => Fade());
         }
 

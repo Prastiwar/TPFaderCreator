@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Name: FaderEditorGUIData
   m_EditorClassIdentifier: 
   GUISkin: {fileID: 11400000, guid: 165eb1bf725686843954f47753fee06b, type: 2}
-  ProgressPrefab: {fileID: 0}
+  ProgressPrefab: {fileID: 1844384938467322, guid: 0eee0f88d257bd2428d930367ab13e20,
+    type: 2}

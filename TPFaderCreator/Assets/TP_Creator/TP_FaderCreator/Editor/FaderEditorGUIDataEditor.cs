@@ -7,6 +7,10 @@ namespace TP_FaderEditor
 {
     public class FaderEditorGUIDataEditor : ScriptlessFaderEditor
     {
-        
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            OpenCreator();
+        }
     }
 }

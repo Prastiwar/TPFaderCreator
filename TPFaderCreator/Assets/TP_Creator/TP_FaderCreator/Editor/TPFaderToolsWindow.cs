@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using TP_Fader;
+using UnityEditor.SceneManagement;
 
 namespace TP_FaderEditor
 {
+    [InitializeOnLoad]
     public class TPFaderToolsWindow : EditorWindow
     {
         public static TPFaderToolsWindow window;
@@ -35,26 +36,47 @@ namespace TP_FaderEditor
         SerializedProperty FadeColor;
 
         SerializedProperty FaderList;
-
-        GUIContent content = new GUIContent("Put there multiple faders");
+        string[] enumNamesList = System.Enum.GetNames(typeof(TPFader.FaderType));
+        GUIContent content = new GUIContent("                          Size:");
 
         Texture2D mainTexture;
-
         Vector2 scrollPos = Vector2.zero;
         Rect mainRect;
 
         static float windowSize = 450;
+        static string currentScene;
 
         public static void OpenToolWindow(ToolEnum _tool)
         {
+            currentScene = EditorSceneManager.GetActiveScene().name;
+            EditorApplication.hierarchyWindowChanged += hierarchyWindowChanged;
+
             if (window != null)
                 window.Close();
 
             tool = _tool;
             window = (TPFaderToolsWindow)GetWindow(typeof(TPFaderToolsWindow));
+            window.autoRepaintOnSceneChange = true;
             window.minSize = new Vector2(windowSize, windowSize);
             window.maxSize = new Vector2(windowSize, windowSize);
             window.Show();
+        }
+
+        static void hierarchyWindowChanged()
+        {
+            if (currentScene != EditorSceneManager.GetActiveScene().name)
+            {
+                if(window)
+                    window.Close();
+                if (TPFaderDesigner.window)
+                    TPFaderDesigner.window.Close();
+            }
+        }
+
+        void Update()
+        {
+            if (EditorApplication.isCompiling)
+                this.Close();
         }
 
         void OnEnable()
@@ -66,6 +88,9 @@ namespace TP_FaderEditor
 
         void FindProperties()
         {
+            if (TPFaderDesigner.creator == null)
+                return;
+
             ProgressFader = TPFaderDesigner.creator.FindProperty("ProgressFader");
             ProgressPrefab = ProgressFader.FindPropertyRelative("ProgressPrefab");
             LoadingBar = ProgressFader.FindPropertyRelative("LoadingBar"); ;
@@ -92,8 +117,18 @@ namespace TP_FaderEditor
             mainTexture.Apply();
         }
 
+        static void OnProjectChanged()
+        {
+            Debug.Log("OnProjectChanged");
+        }
+
         void OnGUI()
         {
+            if (EditorApplication.isPlaying)
+            {
+                this.Close();
+            }
+
             mainRect = new Rect(0, 0, Screen.width, Screen.height);
             GUI.DrawTexture(mainRect, mainTexture);
             scrollPos = GUILayout.BeginScrollView(scrollPos, false, false, GUILayout.Width(window.position.width), GUILayout.Height(window.position.height));
@@ -214,27 +249,34 @@ namespace TP_FaderEditor
             EditorGUILayout.LabelField("Scenes loaded from build settings:", GUILayout.Width(200));
             EditorGUILayout.Popup(0, ReadSceneNames(true));
             EditorGUILayout.EndHorizontal();
-            EditorGUILayout.Separator();
 
-            FaderList.serializedObject.Update();
+            FaderList.serializedObject.UpdateIfRequiredOrScript();
             ShowFaders(FaderList);
         }
 
         void ShowFaders(SerializedProperty list)
         {
+            if (Event.current.type == EventType.DragPerform)
+            {
+                if (DragAndDrop.objectReferences.Length > 1)
+                {
+                    return;
+                }
+                else
+                {
+                    if (!PrefabUtility.GetPrefabObject(DragAndDrop.objectReferences[0]))
+                    {
+                        return;
+                    }
+                }
+            }
+            
+            EditorGUILayout.PropertyField(list.FindPropertyRelative("Array.size"), content, GUILayout.Width(200));
+
             GUILayout.BeginHorizontal();
-            EditorGUILayout.PropertyField(list, content, false, GUILayout.Width(150));
-            if (Event.current.type == EventType.DragPerform && DragAndDrop.objectReferences.Length > 1)
-                return;
-
-            EditorGUILayout.PropertyField(list.FindPropertyRelative("Array.size"), new GUIContent("                           Size: "), GUILayout.Width(200));
-            GUILayout.EndHorizontal();
-
-            EditorGUILayout.Separator();
-
-            GUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Faders loaded:", GUILayout.Width(175));
-            EditorGUILayout.LabelField("Fade to Scene at build index", GUILayout.Width(200));
+            EditorGUILayout.LabelField("Faders loaded:", GUILayout.Width(110));
+            EditorGUILayout.LabelField("Fade to Scene at index", GUILayout.Width(155));
+            EditorGUILayout.LabelField("Fade Type", GUILayout.Width(100));
             GUILayout.EndHorizontal();
             int length = list.arraySize;
             for (int i = 0; i < length; i++)
@@ -243,6 +285,7 @@ namespace TP_FaderEditor
                 EditorGUILayout.PropertyField(list.GetArrayElementAtIndex(i), GUIContent.none);
                 Check(list, i);
                 SetFadeTo(list, i);
+                SetFadeType(list, i);
                 EditAsset(list, i);
                 RemoveAsset(list, i);
                 GUILayout.EndHorizontal();
@@ -269,6 +312,25 @@ namespace TP_FaderEditor
                 EditorGUILayout.HelpBox("There is no scene at this build index", MessageType.Error);
 
             list.serializedObject.ApplyModifiedProperties();
+        }
+
+        void SetFadeType(SerializedProperty list, int index)
+        {
+            if (list.GetArrayElementAtIndex(index).objectReferenceValue == null)
+                return;
+            if ((list.GetArrayElementAtIndex(index).objectReferenceValue as GameObject).GetComponent<TPFader>() == null)
+                return;
+
+            int actualSelected = 1;
+            int selectionFromInspector =
+                (int)(list.GetArrayElementAtIndex(index).objectReferenceValue as GameObject).GetComponent<TPFader>().FadeType;
+
+            actualSelected = EditorGUILayout.Popup(selectionFromInspector, enumNamesList, GUILayout.Width(100));
+
+            (list.GetArrayElementAtIndex(index).objectReferenceValue as GameObject).GetComponent<TPFader>().FadeType
+                = (TPFader.FaderType)actualSelected;
+
+            EditorUtility.SetDirty(list.GetArrayElementAtIndex(index).objectReferenceValue);
         }
 
         void AddComponent(SerializedProperty list)

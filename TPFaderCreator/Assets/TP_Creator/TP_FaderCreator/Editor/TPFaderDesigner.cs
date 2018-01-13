@@ -1,13 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using TP_Fader;
+using UnityEditor.SceneManagement;
 
 namespace TP_FaderEditor
-{ 
-public class TPFaderDesigner : EditorWindow
 {
+    [InitializeOnLoad]
+    public class TPFaderDesigner : EditorWindow
+{
+        public static TPFaderDesigner window;
+        static string currentScene;
+
         [MenuItem("TP_Creator/TP_FaderCreator")]
         public static void OpenWindow()
         {
@@ -16,10 +19,25 @@ public class TPFaderDesigner : EditorWindow
                 Debug.Log("You can't change Fader Designer runtime!");
                 return;
             }
-            TPFaderDesigner window = (TPFaderDesigner)GetWindow(typeof(TPFaderDesigner));
+            currentScene = EditorSceneManager.GetActiveScene().name;
+            EditorApplication.hierarchyWindowChanged += hierarchyWindowChanged;
+
+            window = (TPFaderDesigner)GetWindow(typeof(TPFaderDesigner));
+            window.autoRepaintOnSceneChange = true;
             window.minSize = new Vector2(615, 290);
             window.maxSize = new Vector2(615, 290);
             window.Show();
+        }
+
+        static void hierarchyWindowChanged()
+        {
+            if (currentScene != EditorSceneManager.GetActiveScene().name)
+            {
+                if (TPFaderToolsWindow.window)
+                    TPFaderToolsWindow.window.Close();
+                if(window)
+                    window.Close();
+            }
         }
 
         public static TPFaderGUIData EditorData;
@@ -37,7 +55,6 @@ public class TPFaderDesigner : EditorWindow
         bool existManager;
 
         public static SerializedObject creator;
-        SerializedProperty FadeType;
 
         void OnEnable()
         {
@@ -46,10 +63,7 @@ public class TPFaderDesigner : EditorWindow
             InitCreator();
 
             if (FaderCreator)
-            {
                 creator = new SerializedObject(FaderCreator);
-                FadeType = creator.FindProperty("FadeType");
-            }
         }
 
         void InitEditorData()
@@ -73,10 +87,10 @@ public class TPFaderDesigner : EditorWindow
                       "Assets/TP_Creator/TP_FaderCreator/EditorResources/TPFaderGUISkin.guiskin",
                       typeof(GUISkin)) as GUISkin;
 
-            //if (EditorData.TooltipPrefab == null)
-            //    EditorData.TooltipPrefab = AssetDatabase.LoadAssetAtPath(
-            //        "Assets/TP_Creator/TP_TooltipCreator/EditorResources/TooltipCanvas.prefab",
-            //        typeof(GameObject)) as GameObject;
+            if (EditorData.ProgressPrefab == null)
+                EditorData.ProgressPrefab = AssetDatabase.LoadAssetAtPath(
+                    "Assets/TP_Creator/TP_FaderCreator/EditorResources/FaderLayout.prefab",
+                    typeof(GameObject)) as GameObject;
 
             EditorUtility.SetDirty(EditorData);
         }
@@ -163,7 +177,6 @@ public class TPFaderDesigner : EditorWindow
             }
             else
             {
-                ChangeType();
                 SpawnEmpty();
                 ResetManager();
 
@@ -194,10 +207,7 @@ public class TPFaderDesigner : EditorWindow
                     GUILayout.Height(30)) as TPFaderCreator;
 
             if (FaderCreator)
-            {
                 creator = new SerializedObject(FaderCreator);
-                FadeType = creator.FindProperty("FadeType");
-            }
         }
 
         void ResetManager()
@@ -219,17 +229,14 @@ public class TPFaderDesigner : EditorWindow
                 Debug.Log("Progress fade example created");
             }
         }
-
-        void ChangeType()
-        {
-            EditorGUILayout.LabelField("Fade Type", skin.GetStyle("TipLabel"));
-            EditorGUILayout.PropertyField(FadeType, GUIContent.none);
-        }
-
+        
         public static void UpdateManager()
         {
             if (FaderCreator)
+            {
                 FaderCreator.Refresh();
+                creator = new SerializedObject(FaderCreator);
+            }
             if (creator != null)
                 creator.ApplyModifiedProperties();
         }
