@@ -9,7 +9,6 @@ namespace TP_FaderEditor
         public override void OnInspectorGUI()
         {
             EditorGUILayout.LabelField("Script managing fader object");
-            OpenCreator();
         }
     }
 }

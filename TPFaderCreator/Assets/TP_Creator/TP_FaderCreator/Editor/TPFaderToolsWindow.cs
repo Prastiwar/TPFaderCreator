@@ -23,6 +23,7 @@ namespace TP_FaderEditor
         SerializedProperty ProgressPrefab;
         SerializedProperty LoadingBar;
         SerializedProperty LoadingImage;
+        SerializedProperty LoadingProgressText;
         SerializedProperty LoadingText;
         SerializedProperty LoadingTextString;
         SerializedProperty ProgressFadeSpeed;
@@ -30,6 +31,7 @@ namespace TP_FaderEditor
         SerializedProperty MustKeyToStart;
         SerializedProperty LoadingAnyKeyToStart;
 
+        SerializedProperty AlphaFader;
         SerializedProperty FadeSpeed;
         SerializedProperty FadeTexture;
         SerializedProperty FadeImage;
@@ -95,6 +97,7 @@ namespace TP_FaderEditor
             ProgressPrefab = ProgressFader.FindPropertyRelative("ProgressPrefab");
             LoadingBar = ProgressFader.FindPropertyRelative("LoadingBar"); ;
             LoadingImage = ProgressFader.FindPropertyRelative("LoadingImage");
+            LoadingProgressText = ProgressFader.FindPropertyRelative("LoadingProgressText");
             LoadingText = ProgressFader.FindPropertyRelative("LoadingText");
             LoadingTextString = ProgressFader.FindPropertyRelative("LoadingTextString");
             ProgressFadeSpeed = ProgressFader.FindPropertyRelative("ProgressFadeSpeed");
@@ -102,10 +105,12 @@ namespace TP_FaderEditor
             LoadingAnyKeyToStart = ProgressFader.FindPropertyRelative("LoadingAnyKeyToStart");
             LoadingKeyToStart = ProgressFader.FindPropertyRelative("LoadingKeyToStart");
 
-            FadeSpeed = TPFaderDesigner.creator.FindProperty("FadeSpeed");
-            FadeTexture = TPFaderDesigner.creator.FindProperty("FadeTexture");
+            AlphaFader = TPFaderDesigner.creator.FindProperty("AlphaFader");
+            FadeSpeed = AlphaFader.FindPropertyRelative("FadeSpeed");
+            FadeTexture = AlphaFader.FindPropertyRelative("FadeTexture");
+            FadeColor = AlphaFader.FindPropertyRelative("FadeColor");
+
             FadeImage = TPFaderDesigner.creator.FindProperty("FadeImage");
-            FadeColor = TPFaderDesigner.creator.FindProperty("FadeColor");
             FaderList = TPFaderDesigner.creator.FindProperty("Faders");
         }
 
@@ -193,6 +198,10 @@ namespace TP_FaderEditor
 
             EditorGUILayout.LabelField("Loading Image", TPFaderDesigner.skin.GetStyle("TipLabel"));
             EditorGUILayout.PropertyField(LoadingImage, GUIContent.none);
+            EditorGUILayout.Separator();
+
+            EditorGUILayout.LabelField("Loading Progress Text UI", TPFaderDesigner.skin.GetStyle("TipLabel"));
+            EditorGUILayout.PropertyField(LoadingProgressText, GUIContent.none);
             EditorGUILayout.Separator();
 
             EditorGUILayout.LabelField("Loading Text UI", TPFaderDesigner.skin.GetStyle("TipLabel"));

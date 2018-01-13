@@ -218,7 +218,7 @@ namespace TP_FaderEditor
 
         void SpawnEmpty()
         {
-            if (GUILayout.Button("Spawn empty Progress Fade", skin.button, GUILayout.Height(30)))
+            if (GUILayout.Button("Spawn empty Progress Fade", skin.button, GUILayout.Height(45)))
             {
                 if (EditorData.ProgressPrefab == null)
                 {

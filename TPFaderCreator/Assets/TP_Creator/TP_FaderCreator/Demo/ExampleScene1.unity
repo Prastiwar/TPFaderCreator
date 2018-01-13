@@ -382,6 +382,49 @@ Prefab:
       propertyPath: Faders.Array.data[2]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114860569019917736, guid: 0affb51edc9f5004c93e2e8edcb30e22,
+        type: 2}
+      propertyPath: FadeTexture
+      value: 
+      objectReference: {fileID: 21300000, guid: 36ae37a7d95c78045b545c27d4e9ff8d,
+        type: 3}
+    - target: {fileID: 114860569019917736, guid: 0affb51edc9f5004c93e2e8edcb30e22,
+        type: 2}
+      propertyPath: AlphaFader.FadeSpeed
+      value: 5.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114860569019917736, guid: 0affb51edc9f5004c93e2e8edcb30e22,
+        type: 2}
+      propertyPath: AlphaFader.FadeColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114860569019917736, guid: 0affb51edc9f5004c93e2e8edcb30e22,
+        type: 2}
+      propertyPath: AlphaFader.FadeColor.r
+      value: 0.2794118
+      objectReference: {fileID: 0}
+    - target: {fileID: 114860569019917736, guid: 0affb51edc9f5004c93e2e8edcb30e22,
+        type: 2}
+      propertyPath: AlphaFader.FadeColor.g
+      value: 0.2794118
+      objectReference: {fileID: 0}
+    - target: {fileID: 114860569019917736, guid: 0affb51edc9f5004c93e2e8edcb30e22,
+        type: 2}
+      propertyPath: AlphaFader.FadeColor.b
+      value: 0.2794118
+      objectReference: {fileID: 0}
+    - target: {fileID: 114860569019917736, guid: 0affb51edc9f5004c93e2e8edcb30e22,
+        type: 2}
+      propertyPath: AlphaFader.FadeTexture
+      value: 
+      objectReference: {fileID: 21300000, guid: 36ae37a7d95c78045b545c27d4e9ff8d,
+        type: 3}
+    - target: {fileID: 114860569019917736, guid: 0affb51edc9f5004c93e2e8edcb30e22,
+        type: 2}
+      propertyPath: ProgressFader.LoadingProgressText
+      value: 
+      objectReference: {fileID: 114956809390604970, guid: 0eee0f88d257bd2428d930367ab13e20,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0affb51edc9f5004c93e2e8edcb30e22, type: 2}
   m_IsPrefabParent: 0
