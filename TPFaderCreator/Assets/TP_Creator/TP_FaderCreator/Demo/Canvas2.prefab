@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeType: 1
-  FadeToSceneIndex: 0
+  FadeToScene: 
 --- !u!114 &114448196598927466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeType: 0
-  FadeToSceneIndex: 0
+  FadeToScene: ExampleScene1
 --- !u!114 &114524110851360286
 MonoBehaviour:
   m_ObjectHideFlags: 1

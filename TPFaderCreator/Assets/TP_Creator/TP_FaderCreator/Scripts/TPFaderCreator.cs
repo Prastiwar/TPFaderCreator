@@ -39,16 +39,14 @@ namespace TP_Fader
         [HideInInspector] public bool IsFading = false;
         [HideInInspector] public List<GameObject> Faders;
 
-        public delegate void BeforeSceneLoad();
-        BeforeSceneLoad BeforeSceneIsLoaded;
-
-        public delegate void OnFadeStarted();
-        OnFadeStarted OnFade;
+        public delegate void OnFading();
+        OnFading BeforeSceneIsLoaded;
+        OnFading OnFade;
 
         [HideInInspector] [SerializeField] Image FadeImage;
         CanvasGroup Alpha;
         Canvas canvas;
-        int FadeScene;
+        string FadeScene;
 
         GameObject layout = null;
         Transform layTrans = null;
@@ -98,15 +96,15 @@ namespace TP_Fader
 
         public void Fade()
         {
-            Fade(-1, TPFader.FaderType.Alpha);
+            Fade("", TPFader.FaderType.Alpha);
         }
-        public void Fade(int sceneIndex, TPFader.FaderType FadeType)
+        public void Fade(string sceneName, TPFader.FaderType FadeType)
         {
             if (IsFading)
                 return;
 
             IsFading = true;
-            FadeScene = sceneIndex;
+            FadeScene = sceneName;
 
             switch (FadeType)
             {
@@ -115,7 +113,7 @@ namespace TP_Fader
                     break;
 
                 case TPFader.FaderType.Progress:
-                    if (FadeScene < 0)
+                    if (FadeScene == "")
                     {
                         Debug.Log("Progress loading is available to scene only!");
                         break;
@@ -146,7 +144,7 @@ namespace TP_Fader
         {
             if (BeforeSceneIsLoaded != null)
                 BeforeSceneIsLoaded();
-            if (IsAlpha && FadeScene != -1)
+            if (IsAlpha && FadeScene != "")
                 SceneManager.LoadScene(FadeScene);
 
             yield return waitForEnd;
@@ -269,12 +267,12 @@ namespace TP_Fader
             }
         }
 
-        public void SetOnFaderStarted(OnFadeStarted _OnFade)
+        public void SetOnFaderStarted(OnFading _OnFade)
         {
             OnFade = _OnFade;
         }
 
-        public void SetBeforeSceneLoaded(BeforeSceneLoad _BeforeSceneIsLoaded)
+        public void SetBeforeSceneLoaded(OnFading _BeforeSceneIsLoaded)
         {
             BeforeSceneIsLoaded = _BeforeSceneIsLoaded;
         }

@@ -11,7 +11,7 @@ namespace TP_Fader
         }
 
         public FaderType FadeType;
-        public int FadeToSceneIndex;
+        public string FadeToScene;
 
         public delegate void OnFade();
         OnFade Fade;
@@ -21,7 +21,7 @@ namespace TP_Fader
         void Awake()
         {
             creator = FindObjectOfType<TPFaderCreator>();
-            if (Fade == null) Fade = () => creator.Fade(FadeToSceneIndex, FadeType);
+            if (Fade == null) Fade = () => creator.Fade(FadeToScene, FadeType);
             GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => Fade());
         }
 

@@ -113,11 +113,54 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &678660891
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4594301857899240, guid: 6a61e0292029a654485944906d19f1d9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594301857899240, guid: 6a61e0292029a654485944906d19f1d9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594301857899240, guid: 6a61e0292029a654485944906d19f1d9, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594301857899240, guid: 6a61e0292029a654485944906d19f1d9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594301857899240, guid: 6a61e0292029a654485944906d19f1d9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594301857899240, guid: 6a61e0292029a654485944906d19f1d9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594301857899240, guid: 6a61e0292029a654485944906d19f1d9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594301857899240, guid: 6a61e0292029a654485944906d19f1d9, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 6a61e0292029a654485944906d19f1d9, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &978244578
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 1867629590002986, guid: 6a61e0292029a654485944906d19f1d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 678660891}
   serializedVersion: 5
   m_Component:
   - component: {fileID: 978244581}
@@ -133,8 +176,9 @@ GameObject:
 --- !u!114 &978244579
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 114537231759909802, guid: 6a61e0292029a654485944906d19f1d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 678660891}
   m_GameObject: {fileID: 978244578}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -151,8 +195,9 @@ MonoBehaviour:
 --- !u!114 &978244580
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 114766384833379294, guid: 6a61e0292029a654485944906d19f1d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 678660891}
   m_GameObject: {fileID: 978244578}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -165,8 +210,9 @@ MonoBehaviour:
 --- !u!4 &978244581
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 4594301857899240, guid: 6a61e0292029a654485944906d19f1d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 678660891}
   m_GameObject: {fileID: 978244578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -340,12 +386,12 @@ Prefab:
     - target: {fileID: 224958670946460834, guid: 0affb51edc9f5004c93e2e8edcb30e22,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1680
+      value: 450
       objectReference: {fileID: 0}
     - target: {fileID: 224958670946460834, guid: 0affb51edc9f5004c93e2e8edcb30e22,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 472
       objectReference: {fileID: 0}
     - target: {fileID: 224958670946460834, guid: 0affb51edc9f5004c93e2e8edcb30e22,
         type: 2}
@@ -381,7 +427,8 @@ Prefab:
         type: 2}
       propertyPath: Faders.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1867629590002986, guid: 6a61e0292029a654485944906d19f1d9,
+        type: 2}
     - target: {fileID: 114860569019917736, guid: 0affb51edc9f5004c93e2e8edcb30e22,
         type: 2}
       propertyPath: FadeTexture

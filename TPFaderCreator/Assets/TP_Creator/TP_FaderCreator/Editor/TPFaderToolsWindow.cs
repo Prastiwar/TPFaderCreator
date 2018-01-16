@@ -39,6 +39,7 @@ namespace TP_FaderEditor
 
         SerializedProperty FaderList;
         string[] enumNamesList = System.Enum.GetNames(typeof(TPFader.FaderType));
+        string[] scenesList;
         GUIContent content = new GUIContent("                          Size:");
 
         Texture2D mainTexture;
@@ -83,6 +84,7 @@ namespace TP_FaderEditor
 
         void OnEnable()
         {
+            scenesList = new string[ReadSceneNames(false).Length];
             InitTextures();
 
             FindProperties();
@@ -120,11 +122,6 @@ namespace TP_FaderEditor
             mainTexture = new Texture2D(1, 1);
             mainTexture.SetPixel(0, 0, color);
             mainTexture.Apply();
-        }
-
-        static void OnProjectChanged()
-        {
-            Debug.Log("OnProjectChanged");
         }
 
         void OnGUI()
@@ -253,12 +250,6 @@ namespace TP_FaderEditor
                 return;
             }
 
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.Separator();
-            EditorGUILayout.LabelField("Scenes loaded from build settings:", GUILayout.Width(200));
-            EditorGUILayout.Popup(0, ReadSceneNames(true));
-            EditorGUILayout.EndHorizontal();
-
             FaderList.serializedObject.UpdateIfRequiredOrScript();
             ShowFaders(FaderList);
         }
@@ -284,7 +275,7 @@ namespace TP_FaderEditor
 
             GUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Faders loaded:", GUILayout.Width(110));
-            EditorGUILayout.LabelField("Fade to Scene at index", GUILayout.Width(155));
+            EditorGUILayout.LabelField("Fade to Scene", GUILayout.Width(155));
             EditorGUILayout.LabelField("Fade Type", GUILayout.Width(100));
             GUILayout.EndHorizontal();
             int length = list.arraySize;
@@ -305,22 +296,6 @@ namespace TP_FaderEditor
                 AddComponent(FaderList);
                 FaderList.serializedObject.ApplyModifiedProperties();
             }
-        }
-
-        void SetFadeTo(SerializedProperty list, int index)
-        {
-            if (list.GetArrayElementAtIndex(index).objectReferenceValue == null ||
-                !(list.GetArrayElementAtIndex(index).objectReferenceValue as GameObject).GetComponent<TPFader>())
-                return;
-
-            var fader = (list.GetArrayElementAtIndex(index).objectReferenceValue as GameObject).GetComponent<TPFader>();
-
-            fader.FadeToSceneIndex = EditorGUILayout.IntField(fader.FadeToSceneIndex);
-
-            if (fader.FadeToSceneIndex > UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings - 1)
-                EditorGUILayout.HelpBox("There is no scene at this build index", MessageType.Error);
-
-            list.serializedObject.ApplyModifiedProperties();
         }
 
         void SetFadeType(SerializedProperty list, int index)
@@ -381,7 +356,7 @@ namespace TP_FaderEditor
                     if (list.GetArrayElementAtIndex(index).objectReferenceValue != null)
                     {
                         TPFader script = (list.GetArrayElementAtIndex(index).objectReferenceValue as GameObject).GetComponent<TPFader>();
-                        DestroyImmediate(script);
+                        DestroyImmediate(script, true);
                         list.GetArrayElementAtIndex(index).objectReferenceValue = null;
                     }
                     list.DeleteArrayElementAtIndex(index);
@@ -403,6 +378,33 @@ namespace TP_FaderEditor
             FaderList.arraySize++;
             FaderList.serializedObject.ApplyModifiedProperties();
             TPFaderDesigner.UpdateManager();
+        }
+
+        void SetFadeTo(SerializedProperty list, int index)
+        {
+            if (list.GetArrayElementAtIndex(index).objectReferenceValue == null)
+                return;
+            if ((list.GetArrayElementAtIndex(index).objectReferenceValue as GameObject).GetComponent<TPFader>() == null)
+                return;
+
+            int length = ReadSceneNames(false).Length;
+            for (int i = 0; i < length; i++)
+                scenesList[i] = ReadSceneNames(false)[i];
+
+            int selectionFromInspector = scenesList.Length - 1;
+            for (int i = 0; i < length; i++)
+            { 
+                if ((list.GetArrayElementAtIndex(index).objectReferenceValue as GameObject).GetComponent<TPFader>().FadeToScene == scenesList[i])
+                    selectionFromInspector = i;
+            }
+            int actual = 0;
+            actual = EditorGUILayout.Popup(selectionFromInspector, scenesList, GUILayout.Width(100));
+
+            (list.GetArrayElementAtIndex(index).objectReferenceValue as GameObject).GetComponent<TPFader>().FadeToScene = 
+                scenesList[actual];
+
+            if (GUI.changed)
+                list.serializedObject.ApplyModifiedProperties();
         }
 
         string[] ReadSceneNames(bool withIndex)
