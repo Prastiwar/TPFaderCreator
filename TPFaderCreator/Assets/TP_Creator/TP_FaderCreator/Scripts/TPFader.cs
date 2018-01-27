@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace TP_Fader
 {
-    public class TPFader : MonoBehaviour
+    public class TPFader : MonoBehaviour, IPointerClickHandler
     {
         public enum FaderType
         {
@@ -22,12 +23,16 @@ namespace TP_Fader
         {
             creator = FindObjectOfType<TPFaderCreator>();
             if (Fade == null) Fade = () => creator.Fade(FadeToScene, FadeType);
-            GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => Fade());
         }
 
         public void SetOnFade(OnFade _onFade)
         {
             Fade = _onFade;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            Fade();
         }
     }
 }

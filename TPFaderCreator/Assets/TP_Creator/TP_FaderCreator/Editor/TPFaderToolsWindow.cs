@@ -7,7 +7,7 @@ using UnityEditor.SceneManagement;
 namespace TP_FaderEditor
 {
     [InitializeOnLoad]
-    public class TPFaderToolsWindow : EditorWindow
+    internal class TPFaderToolsWindow : EditorWindow
     {
         public static TPFaderToolsWindow window;
         public enum ToolEnum
@@ -63,6 +63,7 @@ namespace TP_FaderEditor
             window.minSize = new Vector2(windowSize, windowSize);
             window.maxSize = new Vector2(windowSize, windowSize);
             window.Show();
+            AssetDatabase.OpenAsset(TPFaderDesigner.FaderCreator);
         }
 
         static void hierarchyWindowChanged()

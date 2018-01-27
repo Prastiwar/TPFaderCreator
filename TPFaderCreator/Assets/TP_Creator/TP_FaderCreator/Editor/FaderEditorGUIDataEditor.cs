@@ -1,21 +1,26 @@
-﻿using UnityEditor;
+﻿using TP_Fader;
+using UnityEditor;
 using UnityEngine;
 
 namespace TP_FaderEditor
 {
     [CustomEditor(typeof(TPFaderGUIData))]
-    public class FaderEditorGUIDataEditor : ScriptlessFaderEditor
+    internal class FaderEditorGUIDataEditor : ScriptlessFaderEditor
     {
         TPFaderGUIData TPTooltipData;
 
         void OnEnable()
         {
             TPTooltipData = (TPFaderGUIData)target;
+            if (serializedObject.targetObject.hideFlags != HideFlags.NotEditable)
+                serializedObject.targetObject.hideFlags = HideFlags.NotEditable;
         }
 
         public override void OnInspectorGUI()
         {
-            serializedObject.Update();
+            EditorGUILayout.LabelField("Container for editor data");
+            if (!TPFaderCreator.DebugMode)
+                return;
 
             EditorGUILayout.LabelField("GUI Skin");
             TPTooltipData.GUISkin =
@@ -25,11 +30,6 @@ namespace TP_FaderEditor
 
             EditorGUILayout.LabelField("Empty Progress Fade example prefab");
             TPTooltipData.ProgressPrefab = (EditorGUILayout.ObjectField(TPTooltipData.ProgressPrefab, typeof(GameObject), true) as GameObject);
-
-            if (GUI.changed)
-                EditorUtility.SetDirty(TPTooltipData);
-
-            serializedObject.ApplyModifiedProperties();
         }
     }
 }

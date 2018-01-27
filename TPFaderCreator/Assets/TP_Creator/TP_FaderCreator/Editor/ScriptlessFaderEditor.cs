@@ -1,9 +1,10 @@
-﻿using UnityEditor;
+﻿using TP_Fader;
+using UnityEditor;
 using UnityEngine;
 
 namespace TP_FaderEditor
 {
-    public class ScriptlessFaderEditor : Editor
+    internal class ScriptlessFaderEditor : Editor
     {
         public readonly string scriptField = "m_Script";
 
@@ -16,6 +17,16 @@ namespace TP_FaderEditor
 
         public void OpenCreator()
         {
+            if (TPFaderCreator.DebugMode)
+            {
+                if (serializedObject.targetObject.hideFlags != HideFlags.NotEditable)
+                    serializedObject.targetObject.hideFlags = HideFlags.NotEditable;
+                return;
+            }
+
+            if (serializedObject.targetObject.hideFlags != HideFlags.None)
+                serializedObject.targetObject.hideFlags = HideFlags.None;
+
             if (GUILayout.Button("Open Fader Manager", GUILayout.Height(30)))
             {
                 TPFaderDesigner.OpenWindow();

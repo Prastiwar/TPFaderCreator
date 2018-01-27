@@ -12,6 +12,7 @@ namespace TP_Fader
     public class TPFaderCreator : MonoBehaviour
     {
         private static TPFaderCreator instance;
+        public static bool DebugMode;
         [System.Serializable]
         public struct TP_ProgressFade
         {
@@ -34,10 +35,10 @@ namespace TP_Fader
             public Color FadeColor;
         }
         
-        [HideInInspector] public TP_ProgressFade ProgressFader;
-        [HideInInspector] public TP_AlphaFade AlphaFader;
-        [HideInInspector] public bool IsFading = false;
-        [HideInInspector] public List<GameObject> Faders;
+        public TP_ProgressFade ProgressFader;
+        public TP_AlphaFade AlphaFader;
+        public bool IsFading = false;
+        public List<GameObject> Faders;
 
         public delegate void OnFading();
         OnFading BeforeSceneIsLoaded;
@@ -87,6 +88,7 @@ namespace TP_Fader
 
             Alpha.interactable = false;
             Alpha.blocksRaycasts = false;
+            Alpha.ignoreParentGroups = true;
 
             canvas.enabled = false;
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
