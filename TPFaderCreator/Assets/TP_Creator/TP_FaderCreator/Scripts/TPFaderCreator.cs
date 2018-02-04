@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-namespace TP_Fader
+namespace TP.Fader
 {
     [RequireComponent(typeof(Image))]
     [RequireComponent(typeof(Canvas))]

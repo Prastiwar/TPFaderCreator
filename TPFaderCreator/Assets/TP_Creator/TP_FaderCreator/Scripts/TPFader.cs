@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace TP_Fader
+namespace TP.Fader
 {
     public class TPFader : MonoBehaviour, IPointerClickHandler
     {

@@ -1,9 +1,9 @@
 ﻿using UnityEditor;
-using TP_Fader;
+using TP.Fader;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TP_FaderEditor
+namespace TP.FaderEditor
 {
     [CustomEditor(typeof(TPFaderCreator))]
     internal class TPFaderCreatorEditor : ScriptlessFaderEditor

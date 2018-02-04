@@ -1,8 +1,8 @@
-﻿using TP_Fader;
+﻿using TP.Fader;
 using UnityEditor;
 using UnityEngine;
 
-namespace TP_FaderEditor
+namespace TP.FaderEditor
 {
     internal class ScriptlessFaderEditor : Editor
     {

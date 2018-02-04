@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TP_FaderEditor
+namespace TP.FaderEditor
 {
     public class TPFaderGUIData : ScriptableObject
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using TP_Fader;
+using TP.Fader;
 using UnityEditor.SceneManagement;
 
-namespace TP_FaderEditor
+namespace TP.FaderEditor
 {
     [InitializeOnLoad]
     internal class TPFaderToolsWindow : EditorWindow
