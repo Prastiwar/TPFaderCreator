@@ -2,6 +2,7 @@
 using UnityEditor;
 using TP.Fader;
 using UnityEditor.SceneManagement;
+using TP.Utilities;
 
 namespace TP.FaderEditor
 {
@@ -40,7 +41,7 @@ namespace TP.FaderEditor
             }
         }
 
-        public static TPFaderGUIData EditorData;
+        public static TPEditorGUIData EditorData;
         public static TPFaderCreator FaderCreator;
         public static GUISkin skin;
 
@@ -68,9 +69,13 @@ namespace TP.FaderEditor
 
         void InitEditorData()
         {
+            string path = "Assets/TP_Creator/_CreatorResources/";
+            if (!System.IO.Directory.Exists(path))
+                System.IO.Directory.CreateDirectory(path);
+
             EditorData = AssetDatabase.LoadAssetAtPath(
-                   "Assets/TP_Creator/TP_FaderCreator/EditorResources/FaderEditorGUIData.asset",
-                   typeof(TPFaderGUIData)) as TPFaderGUIData;
+                   path + "FaderEditorGUIData.asset",
+                   typeof(TPEditorGUIData)) as TPEditorGUIData;
 
             if (EditorData == null)
                 CreateEditorData();
@@ -84,21 +89,26 @@ namespace TP.FaderEditor
         {
             if (EditorData.GUISkin == null)
                 EditorData.GUISkin = AssetDatabase.LoadAssetAtPath(
-                      "Assets/TP_Creator/TP_FaderCreator/EditorResources/TPFaderGUISkin.guiskin",
+                      "Assets/TP_Creator/_CreatorResources/TPEditorGUISkin.guiskin",
                       typeof(GUISkin)) as GUISkin;
 
-            if (EditorData.ProgressPrefab == null)
-                EditorData.ProgressPrefab = AssetDatabase.LoadAssetAtPath(
-                    "Assets/TP_Creator/TP_FaderCreator/EditorResources/FaderLayout.prefab",
+            if (EditorData.Prefab == null)
+                EditorData.Prefab = AssetDatabase.LoadAssetAtPath(
+                    "Assets/TP_Creator/_CreatorResources/FaderLayout.prefab",
                     typeof(GameObject)) as GameObject;
+
+            if (EditorData.GUISkin == null)
+            {
+                Debug.LogError("There is no guiskin for TPEditor!");
+            }
 
             EditorUtility.SetDirty(EditorData);
         }
 
         void CreateEditorData()
         {
-            TPFaderGUIData newEditorData = ScriptableObject.CreateInstance<TPFaderGUIData>();
-            AssetDatabase.CreateAsset(newEditorData, "Assets/TP_Creator/TP_FaderCreator/EditorResources/FaderEditorGUIData.asset");
+            TPEditorGUIData newEditorData = ScriptableObject.CreateInstance<TPEditorGUIData>();
+            AssetDatabase.CreateAsset(newEditorData, "Assets/TP_Creator/_CreatorResources/FaderEditorGUIData.asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             EditorData = newEditorData;
@@ -237,12 +247,12 @@ namespace TP.FaderEditor
         {
             if (GUILayout.Button("Spawn empty Progress Fade", skin.button, GUILayout.Height(45)))
             {
-                if (EditorData.ProgressPrefab == null)
+                if (EditorData.Prefab == null)
                 {
-                    Debug.LogError("There is no progress prefab in EditorGUIData file!");
+                    Debug.LogError("There is no progress prefab named 'FaderLayout' in Creator Resources folder!");
                     return;
                 }
-                Instantiate(EditorData.ProgressPrefab);
+                Instantiate(EditorData.Prefab);
                 Debug.Log("Progress fade example created");
             }
         }
